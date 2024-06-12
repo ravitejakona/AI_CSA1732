@@ -1,0 +1,16 @@
+% Facts: name(Name, DateOfBirth).
+name('Alice', '1990-01-15').
+name('Bob', '1985-05-23').
+name('Charlie', '1992-07-09').
+name('Diana', '1988-12-02').
+name('Edward', '1995-03-14').
+
+% Rules to query the database
+
+% Get DOB by Name
+dob(Name, DOB) :-
+    name(Name, DOB).
+
+% Get Name by DOB
+person_by_dob(DOB, Name) :-
+    name(Name, DOB).
