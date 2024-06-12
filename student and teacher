@@ -1,0 +1,42 @@
+% Facts: student(StudentName, SubjectCode).
+student('Alice', 'CS101').
+student('Bob', 'MATH201').
+student('Charlie', 'CS101').
+student('Diana', 'ENG301').
+student('Edward', 'MATH201').
+
+% Facts: teacher(TeacherName, SubjectCode).
+teacher('Dr. Smith', 'CS101').
+teacher('Prof. Johnson', 'MATH201').
+teacher('Ms. Clark', 'ENG301').
+
+% Facts: subject(SubjectCode, SubjectName).
+subject('CS101', 'Computer Science').
+subject('MATH201', 'Mathematics').
+subject('ENG301', 'English Literature').
+
+% Rules to query the database
+
+% Get the subject name given a student's name.
+student_subject(StudentName, SubjectName) :-
+    student(StudentName, SubjectCode),
+    subject(SubjectCode, SubjectName).
+
+% Get the teacher's name given a student's name.
+student_teacher(StudentName, TeacherName) :-
+    student(StudentName, SubjectCode),
+    teacher(TeacherName, SubjectCode).
+
+% Get the subject name given a teacher's name.
+teacher_subject(TeacherName, SubjectName) :-
+    teacher(TeacherName, SubjectCode),
+    subject(SubjectCode, SubjectName).
+
+% Get all students for a given subject code.
+students_in_subject(SubjectCode, StudentName) :-
+    student(StudentName, SubjectCode).
+
+% Get all students taught by a given teacher.
+students_by_teacher(TeacherName, StudentName) :-
+    teacher(TeacherName, SubjectCode),
+    student(StudentName, SubjectCode).
