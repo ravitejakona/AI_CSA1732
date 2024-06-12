@@ -1,0 +1,15 @@
+% Towers of Hanoi in Prolog
+
+% move(N, Source, Destination, Auxiliary)
+% Move N disks from Source to Destination using Auxiliary as the auxiliary peg
+
+move(0, _, _, _) :- !.
+move(N, Source, Destination, Auxiliary) :-
+    N > 0,
+    M is N - 1,
+    move(M, Source, Auxiliary, Destination),      % Move M disks from Source to Auxiliary using Destination
+    format('Move disk ~w from ~w to ~w~n', [N, Source, Destination]), % Move the largest disk from Source to Destination
+    move(M, Auxiliary, Destination, Source).      % Move M disks from Auxiliary to Destination using Source
+
+% Example query to solve for 3 disks
+% ?- move(3, left, right, center).
