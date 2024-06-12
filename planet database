@@ -1,0 +1,31 @@
+% Facts: planet(Name, OrderFromSun, Diameter, Mass, NumberOfMoons).
+% Diameter is in kilometers, mass is in 10^24 kg, number of moons is an integer.
+
+planet('Mercury', 1, 4879, 0.330, 0).
+planet('Venus', 2, 12104, 4.87, 0).
+planet('Earth', 3, 12742, 5.97, 1).
+planet('Mars', 4, 6779, 0.642, 2).
+planet('Jupiter', 5, 139820, 1898, 79).
+planet('Saturn', 6, 116460, 568, 82).
+planet('Uranus', 7, 50724, 86.8, 27).
+planet('Neptune', 8, 49244, 102, 14).
+
+% Rules to query the database
+
+% Get the order from the sun given a planet's name.
+order_from_sun(PlanetName, OrderFromSun) :-
+    planet(PlanetName, OrderFromSun, _, _, _).
+
+% Get the diameter given a planet's name.
+diameter(PlanetName, Diameter) :-
+    planet(PlanetName, _, Diameter, _, _).
+
+% Get the mass given a planet's name.
+mass(PlanetName, Mass) :-
+    planet(PlanetName, _, _, Mass, _).
+
+% Get the number of moons given a planet's name.
+number_of_moons(PlanetName, NumberOfMoons) :-
+    planet(PlanetName, _, _, _, NumberOfMoons).
+
+% Get all information about a planet gi
