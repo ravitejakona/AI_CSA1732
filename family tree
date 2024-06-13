@@ -1,0 +1,91 @@
+% Facts
+male(john).
+male(michael).
+male(paul).
+male(tom).
+male(james).
+
+female(mary).
+female(susan).
+female(anna).
+female(kate).
+female(linda).
+
+parent(john, michael).
+parent(john, susan).
+parent(mary, michael).
+parent(mary, susan).
+parent(paul, john).
+parent(anna, john).
+parent(paul, linda).
+parent(anna, linda).
+parent(tom, kate).
+parent(kate, james).
+
+% Rules
+father(F, C) :-
+    male(F),
+    parent(F, C).
+
+mother(M, C) :-
+    female(M),
+    parent(M, C).
+
+sibling(X, Y) :-
+    parent(P, X),
+    parent(P, Y),
+    X \= Y.
+
+brother(B, S) :-
+    male(B),
+    sibling(B, S).
+
+sister(S, B) :-
+    female(S),
+    sibling(S, B).
+
+grandparent(G, C) :-
+    parent(G, P),
+    parent(P, C).
+
+grandfather(GF, C) :-
+    male(GF),
+    grandparent(GF, C).
+
+grandmother(GM, C) :-
+    female(GM),
+    grandparent(GM, C).
+
+uncle(U, N) :-
+    brother(U, P),
+    parent(P, N).
+
+uncle(U, N) :-
+    brother(U, M),
+    parent(M, N).
+
+aunt(A, N) :-
+    sister(A, P),
+    parent(P, N).
+
+aunt(A, N) :-
+    sister(A, M),
+    parent(M, N).
+
+cousin(C1, C2) :-
+    parent(P1, C1),
+    parent(P2, C2),
+    sibling(P1, P2).
+
+% Sample Queries:
+% ?- father(john, michael).
+% ?- mother(mary, susan).
+% ?- sibling(michael, susan).
+% ?- brother(michael, susan).
+% ?- sister(susan, michael).
+% ?- grandparent(paul, michael).
+% ?- grandfather(paul, michael).
+% ?- grandmother(anna, susan).
+% ?- uncle(tom, michael).
+% ?- aunt(kate, susan).
+% ?- cousin(james, michael).
