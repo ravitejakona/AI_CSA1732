@@ -1,0 +1,80 @@
+% Example graph represented as edges between nodes
+edge(a, b, 5).
+edge(a, c, 8).
+edge(b, d, 12).
+edge(b, e, 15).
+edge(c, f, 10).
+edge(c, g, 4).
+edge(d, h, 7).
+edge(e, i, 6).
+edge(f, j, 3).
+edge(g, k, 9).
+
+% Heuristic function (assuming distance from node to goal)
+heuristic(Node, Goal, H) :-
+    distance(Node, Goal, H).
+
+% Distance between nodes (example heuristic function)
+distance(Node, Goal, Distance) :-
+    % Example distances (can be replaced with actual heuristic values)
+    node_position(Node, X1, Y1),
+    node_position(Goal, X2, Y2),
+    Distance is sqrt((X2 - X1)^2 + (Y2 - Y1)^2).
+
+% Node positions (example positions for heuristic)
+node_position(a, 1, 1).
+node_position(b, 2, 1).
+node_position(c, 1, 2).
+node_position(d, 3, 1).
+node_position(e, 3, 2).
+node_position(f, 1, 3).
+node_position(g, 2, 2).
+node_position(h, 4, 1).
+node_position(i, 4, 2).
+node_position(j, 1, 4).
+node_position(k, 2, 3).
+
+% Best-First Search algorithm
+best_first_search(Start, Goal, Path) :-
+    empty_pq(Empty),
+    heuristic(Start, Goal, H),
+    insert_pq((H, Start, [Start]), Empty, Queue),
+    bfs_search(Queue, Goal, Path).
+
+bfs_search([(0, Goal, Path) | _], Goal, Path).
+
+bfs_search([(F, Node, Path) | Rest], Goal, FinalPath) :-
+    findall((NewF, NextNode, [NextNode | Path]),
+            (edge(Node, NextNode, Cost),
+             heuristic(NextNode, Goal, H),
+             NewF is F + Cost + H),
+            Children),
+    merge_pq(Children, Rest, NewQueue),
+    bfs_search(NewQueue, Goal, FinalPath).
+
+% Priority queue operations
+empty_pq([]).
+
+insert_pq(Element, Queue, NewQueue) :-
+    insert_sorted(Element, Queue, NewQueue).
+
+insert_sorted(Element, [], [Element]).
+insert_sorted((F1, Node1, Path1), [(F2, Node2, Path2) | Rest], [(F1, Node1, Path1), (F2, Node2, Path2) | Rest]) :-
+    F1 =< F2.
+insert_sorted((F1, Node1, Path1), [(F2, Node2, Path2) | Rest], [(F2, Node2, Path2) | NewRest]) :-
+    F1 > F2,
+    insert_sorted((F1, Node1, Path1), Rest, NewRest).
+
+merge_pq([], Queue, Queue).
+merge_pq(Queue, [], Queue).
+merge_pq([X | Xs], [Y | Ys], [X | Zs]) :-
+    X = (F1, _, _),
+    Y = (F2, _, _),
+    F1 =< F2,
+    merge_pq(Xs, [Y | Ys], Zs).
+merge_pq([X | Xs], [Y | Ys], [Y | Zs]) :-
+    X = (F1, _, _),
+    Y = (F2, _, _),
+    F1 > F2,
+    merge_pq([X | Xs], Ys, Zs).
+
