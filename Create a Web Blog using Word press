@@ -1,0 +1,38 @@
+<!-- Title Tag (Note: This is typically set in the HTML <head> section, but for demonstration, we're including it here) -->
+<title>Demonstrating HTML Tags in WordPress</title>
+
+<!-- Main Content -->
+<h1>Main Heading (H1)</h1>
+<p>This is a main heading demonstrated using the <code>&lt;h1&gt;</code> tag.</p>
+
+<h2>Subheading (H2)</h2>
+<p>This subheading is demonstrated using the <code>&lt;h2&gt;</code> tag.</p>
+
+<h3>Sub-subheading (H3)</h3>
+<p>This is a sub-subheading demonstrated using the <code>&lt;h3&gt;</code> tag.</p>
+
+<!-- Paragraph with Anchor Tag -->
+<p>This is a paragraph with an <a href="https://www.example.com" target="_blank" title="Example Website">example link</a> demonstrating the anchor tag.</p>
+
+<!-- Image Tag -->
+<p><img src="https://www.example.com/image.jpg" alt="Example Image" title="Image Title"></p>
+
+<!-- Unordered List -->
+<h2>Unordered List</h2>
+<ul>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ul>
+
+<!-- Ordered List -->
+<h2>Ordered List</h2>
+<ol>
+    <li>First item</li>
+    <li>Second item</li>
+    <li>Third item</li>
+</ol>
+
+<!-- Bold and Italic Text -->
+<h2>Text Formatting</h2>
+<p>This is <b>bold text</b> and this is <i>italic text</i>.</p>
