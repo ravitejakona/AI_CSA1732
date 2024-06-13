@@ -1,0 +1,31 @@
+% Facts: disease and dietary recommendations
+diet_for_disease(diabetes, low_sugar).
+diet_for_disease(diabetes, high_fiber).
+diet_for_disease(diabetes, lean_protein).
+
+diet_for_disease(hypertension, low_sodium).
+diet_for_disease(hypertension, high_potassium).
+diet_for_disease(hypertension, whole_grains).
+
+diet_for_disease(celiac, gluten_free).
+diet_for_disease(celiac, high_fiber).
+diet_for_disease(celiac, lean_protein).
+
+diet_for_disease(anemia, high_iron).
+diet_for_disease(anemia, vitamin_c).
+diet_for_disease(anemia, lean_protein).
+
+diet_for_disease(obesity, low_calorie).
+diet_for_disease(obesity, high_fiber).
+diet_for_disease(obesity, lean_protein).
+
+% Rules: suggest diet based on disease
+suggest_diet(Disease, Diet) :-
+    diet_for_disease(Disease, Diet).
+
+% Sample Queries:
+% ?- suggest_diet(diabetes, Diet).
+% ?- suggest_diet(hypertension, Diet).
+% ?- suggest_diet(celiac, Diet).
+% ?- suggest_diet(anemia, Diet).
+% ?- suggest_diet(obesity, Diet).
