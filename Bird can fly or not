@@ -1,0 +1,28 @@
+% Define birds and whether they can fly
+bird(eagle).
+bird(penguin).
+bird(sparrow).
+bird(ostrich).
+bird(swallow).
+
+can_fly(eagle).
+can_fly(sparrow).
+can_fly(swallow).
+
+% Define the rule to check if a bird can fly
+can_bird_fly(Bird) :-
+    bird(Bird),
+    can_fly(Bird),
+    format('~w can fly.', [Bird]).
+
+can_bird_fly(Bird) :-
+    bird(Bird),
+    \+ can_fly(Bird),
+    format('~w cannot fly.', [Bird]).
+
+% Sample Queries:
+% ?- can_bird_fly(eagle).
+% ?- can_bird_fly(penguin).
+% ?- can_bird_fly(sparrow).
+% ?- can_bird_fly(ostrich).
+% ?- can_bird_fly(swallow).
