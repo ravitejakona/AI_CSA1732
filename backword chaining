@@ -1,0 +1,15 @@
+% Knowledge Base
+% Facts
+bird(tweety).
+fish(goldie).
+mammal(silvester).
+
+% Rules
+can_fly(X) :- bird(X).
+can_swim(X) :- fish(X).
+has_fur(X) :- mammal(X).
+
+% Example Queries
+% can_fly(tweety).
+% can_swim(goldie).
+% has_fur(silvester).
