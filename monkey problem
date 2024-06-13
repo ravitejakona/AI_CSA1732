@@ -1,0 +1,25 @@
+% Initial state: monkey at A on the floor, box at B, banana at C
+initial(state(at_A, on_floor, at_B, banana_at_C)).
+goal(state(_, _, _, monkey_has_banana)).
+
+% Possible actions
+move(state(Pos, on_floor, BoxPos, BananaPos), walk(Pos, NewPos), state(NewPos, on_floor, BoxPos, BananaPos)).
+move(state(Pos, on_floor, Pos, BananaPos), push(Pos, NewPos), state(NewPos, on_floor, NewPos, BananaPos)).
+move(state(Pos, on_floor, Pos, BananaPos), climb, state(Pos, on_box, Pos, BananaPos)).
+move(state(Pos, on_box, Pos, Pos), grasp, state(Pos, on_box, Pos, monkey_has_banana)).
+
+% Plan to reach the goal state
+plan(State, _, []) :- goal(State).
+plan(State, Visited, [Action | Actions]) :-
+    move(State, Action, NewState),
+    \+ member(NewState, Visited),
+    plan(NewState, [NewState | Visited], Actions).
+
+% Solve the problem
+solve :-
+    initial(InitialState),
+    plan(InitialState, [InitialState], Actions),
+    write('Plan to get the banana: '), nl,
+    write(Actions), nl.
+
+% Sample Query: ?- solve.
