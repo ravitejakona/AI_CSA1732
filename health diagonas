@@ -1,0 +1,24 @@
+% Define diseases and their symptoms
+disease(flu) :- symptom(fever), symptom(cough), symptom(sore_throat), symptom(runny_nose).
+disease(cold) :- symptom(cough), symptom(sore_throat), symptom(runny_nose).
+disease(covid19) :- symptom(fever), symptom(cough), symptom(shortness_of_breath), symptom(loss_of_taste_or_smell).
+disease(allergy) :- symptom(runny_nose), symptom(sneezing), symptom(itchy_eyes).
+
+% Ask the user about their symptoms
+ask_symptom(Symptom) :-
+    format('Do you have ~w? (yes/no): ', [Symptom]),
+    read(Response),
+    (Response == yes -> assert(symptom(Symptom)); true).
+
+% Main program loop
+start_diagnosis :-
+    retractall(symptom(_)),
+    ask_symptom(fever),
+    ask_symptom(cough),
+    ask_symptom(sore_throat),
+    ask_symptom(runny_nose),
+    ask_symptom(shortness_of_breath),
+    ask_symptom(loss_of_taste_or_smell),
+    ask_symptom(sneezing),
+    ask_symptom(itchy_eyes),
+    (disease(D) -> format('You might have ~w.', [D]); write('No diagnosis could be made.')).
