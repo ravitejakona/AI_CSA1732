@@ -1,0 +1,19 @@
+% Forward Chaining Mechanism
+forward_chain :-
+    findall(Rule, (rule(Rule), \+ fact(Rule)), Rules),
+    apply_rules(Rules).
+
+apply_rules([]) :- !. % If there are no more rules to apply, stop.
+apply_rules([Rule|Rest]) :-
+    assertz(fact(Rule)), % Assert the new fact.
+    forward_chain. % Continue chaining with the updated knowledge base.
+
+% Query to run forward chaining and display all inferred facts
+run_forward_chaining :-
+    forward_chain,
+    list_facts.
+
+list_facts :-
+    findall(Fact, fact(Fact), Facts),
+    writeln('Inferred Facts:'),
+    writeln(Facts).
