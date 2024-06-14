@@ -1,0 +1,19 @@
+% Define the graph
+edge(a, b).
+edge(a, c).
+edge(b, d).
+edge(b, e).
+edge(c, f).
+edge(e, g).
+edge(f, h).
+
+% DFS implementation
+dfs(Start, Goal, Path) :-
+    dfs_util(Start, Goal, [Start], Path).
+
+% Utility predicate for DFS
+dfs_util(Goal, Goal, Path, Path).
+dfs_util(Current, Goal, Visited, Path) :-
+    edge(Current, Next),
+    \+ member(Next, Visited), % Ensure the next node is not already visited
+    dfs_util(Next, Goal, [Next|Visited], Path).
